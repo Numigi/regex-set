@@ -13,8 +13,9 @@ def task_numbers_from_tag(text: str, ids=None) -> List[str]:
     # I can't find a way to make it work with findall or finditer
     # so here is a recursive way.
     if res:
-        ids.append(res["id"])
-        task = res["task_tag"]
+        group_dict = res.groupdict()
+        ids.append(group_dict["id"])
+        task = group_dict["task_tag"]
         sub_text = re.sub(task, " ", text)
         ids = task_numbers_from_tag(sub_text, ids)
     return ids
