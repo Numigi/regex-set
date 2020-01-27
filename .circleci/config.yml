@@ -75,6 +75,20 @@ jobs:
             pipenv install twine
             pipenv run twine upload dist/*
 
+  auto-tag:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Get nws
+          command: |
+            curl -L $NWS_BIN_LOCATION > ./nws
+            chmod +x ./nws
+      - run:
+          name: Set tag
+          command: |
+            ./nws circleci create-tag
+
 workflows:
   version: 2
   build:
@@ -84,10 +98,16 @@ workflows:
             tags:
               only: /.*/
       - deploy:
-          requires:
-            - python3
           filters:
             tags:
               only: /[0-9]+(\.[0-9]+)*/
             branches:
               ignore: /.*/
+
+      - auto-tag:
+          context: nws
+          requires:
+            - python3
+          filters:
+            branches:
+              only: /^1\d\.0/

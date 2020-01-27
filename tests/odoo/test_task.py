@@ -27,6 +27,7 @@ def test_task_numbers_from_tag(input_, expected):
 @pytest.mark.parametrize(
     "input_",
     [
+        "",  # empty string
         "⁣TA#6789⁣",  # invisble spaces
         "6TA#5678",  # a number before the tag
         "tt#5678",  # not the correct tag
