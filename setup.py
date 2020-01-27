@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from setuptools import find_packages, setup
-from src import manifest
+from odoo_regex_set import manifest
 
 setup(
     name=manifest.name,

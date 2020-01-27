@@ -23,11 +23,11 @@ def remove_task_from_text(text: str, task_tag: str) -> str:
     return re.sub(task_tag, "", text)
 
 
-def task_ids_from_tag(text: str, ids=None) -> List[str]:
+def find_ids(text: str, ids=None) -> List[str]:
     ids = ids or set([])
     id_, task_tag = find_task_details(text)
     if id_:
         ids.add(id_)
         cleaned_text = remove_task_from_text(text, task_tag)
-        ids = task_ids_from_tag(cleaned_text, ids)
+        ids = find_ids(cleaned_text, ids)
     return sorted(list(ids))

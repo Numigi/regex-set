@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pytest
-from src import task
+from odoo_regex_set import task
 
 
 @pytest.mark.parametrize(
@@ -22,9 +22,9 @@ from src import task
         )  # multilines,
     ]
 )
-def test_task_ids_from_tag(input_, expected):
+def test_find_ids_found(input_, expected):
     """ Test the function accepts any numbers of tags"""
-    assert task.task_ids_from_tag(input_) == expected
+    assert task.find_ids(input_) == expected
 
 
 @pytest.mark.parametrize(
@@ -33,8 +33,8 @@ def test_task_ids_from_tag(input_, expected):
         "",  # empty string
     ]
 )
-def test_task_ids_from_tag_wrong(input_):
-    assert not task.task_ids_from_tag(input_)
+def test_find_ids_empty(input_):
+    assert not task.find_ids(input_)
 
 
 @pytest.mark.parametrize(
@@ -50,7 +50,7 @@ def test_task_ids_from_tag_wrong(input_):
         ("Une phrase avec le tag suivi par un point TA#6754", ("6754", "TA#6754"))
     ]
 )
-def test_find_task_id_success(input_, expected):
+def test_find_task_details_success(input_, expected):
     assert task.find_task_details(input_) == expected
 
 
@@ -70,7 +70,7 @@ def test_find_task_id_success(input_, expected):
         "^⁣TA#5647"  # tag with a special character before
     ]
 )
-def test_find_task_id_failure(input_):
+def test_find_task_details_failure(input_):
     assert task.find_task_details(input_) == ("", "")
 
 
