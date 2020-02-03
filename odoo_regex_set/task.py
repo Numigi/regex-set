@@ -5,7 +5,8 @@ from typing import List
 import re
 
 task_details_from_tag_regex = re.compile(
-    r"(^|\s+)(?P<task_tag>[Tt][Aa]#?(?P<id>\d+))(\s+|$)"
+    # r"(^|\s+)(?P<task_tag>[Tt][Aa]#?(?P<id>\d+))(\s+|$)"
+    r"(^|\s+)(?P<task_tag>[Tt][Aa]#?(?P<id>\d+)[^\w\s]*)(\s+|$)"
 )
 
 
